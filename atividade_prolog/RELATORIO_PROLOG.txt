@@ -1,0 +1,386 @@
+================================================================================
+ATIVIDADE INTRODUTÓRIA: CONCEITOS BÁSICOS DE PROLOG
+================================================================================
+Pesquisa e Análise de Programação Lógica
+
+================================================================================
+1. PROGRAMAÇÃO LÓGICA: DEFINIÇÃO E CONTEXTO
+================================================================================
+
+A programação lógica é um paradigma de programação baseado em lógica 
+matemática. Diferentemente de linguagens imperativas (como C, Python ou Java) 
+que descrevem "como" resolver um problema através de instruções sequenciais, 
+a programação lógica permite ao programador descrever "o quê" deseja obter, 
+declarando fatos e regras sobre o domínio do problema.
+
+No modelo lógico, um programa consiste em um conjunto de declarações 
+(proposições) sobre o mundo representado. O sistema então utiliza mecanismos 
+de inferência para derivar conclusões a partir dessas declarações. A lógica 
+de primeira ordem é o fundamento teórico utilizado, permitindo expressar 
+predicados, variáveis e quantificadores.
+
+Principais características da programação lógica:
+• Declaratividade: descreve-se o conhecimento, não a computação
+• Não-determinismo: múltiplas soluções podem ser geradas automaticamente
+• Unificação: mecanismo automático de correspondência de padrões
+• Backtracking: exploração automática de alternativas
+
+
+================================================================================
+2. A LINGUAGEM PROLOG
+================================================================================
+
+Prolog (Programming in Logic) é uma linguagem de programação baseada em 
+lógica que implementa os princípios da programação lógica de forma prática 
+e executável.
+
+Breve histórico:
+Prolog foi desenvolvida em 1972 por Alain Colmerauer e Robert Kowalski, 
+inicialmente para aplicações de processamento de linguagem natural. A partir 
+dos anos 1980, ganhou importância na pesquisa em inteligência artificial e 
+em sistemas de representação de conhecimento.
+
+Usos principais de Prolog em exemplos introdutórios:
+• Representação de conhecimento: expressar fatos e regras sobre domínios
+• Resolução de problemas: busca e deducção automática
+• Prototipagem rápida: desenvolvimento ágil de sistemas lógicos
+• Educação: ensino de conceitos de lógica e programação declarativa
+• Processamento de linguagem natural: análise sintática e semântica
+• Sistemas de recomendação: inferência de recomendações a partir de fatos
+
+No contexto educacional, Prolog é especialmente útil porque permite que 
+iniciantes aprendam a pensar em termos de lógica e deducção, abstraindo-se 
+de detalhes de implementação de baixo nível.
+
+
+================================================================================
+3. FATOS, REGRAS E CONSULTAS
+================================================================================
+
+3.1 FATOS
+--------
+Um fato é uma declaração de verdade incondicionada sobre o domínio do 
+problema. Representa informação base, fundamental, que é sempre considerada 
+verdadeira.
+
+Sintaxe: predicado(argumento1, argumento2, ...).
+
+Exemplos:
+  pai(carlos, joao).           % Carlos é pai de João
+  mae(teresa, joao).           % Teresa é mãe de João
+  cidade(lisboa, portugal).    % Lisboa está em Portugal
+
+Os fatos são o conhecimento primitivo. Todos os dados brutos sobre o mundo 
+representado são expressos como fatos.
+
+3.2 REGRAS
+----------
+Uma regra é uma declaração condicional que permite derivar novos fatos 
+a partir de fatos conhecidos. Uma regra possui uma cabeça (conclusão) 
+e um corpo (condições).
+
+Sintaxe: cabeca :- condicao1, condicao2, ..., condicaoN.
+
+Significado: A cabeça é verdadeira SE todas as condições no corpo forem 
+verdadeiras. O operador :- lê-se "se" ou "implica".
+
+Exemplos:
+  filho(X, Y) :- pai(Y, X).
+  (X é filho de Y se Y é pai de X)
+
+  avo(X, Z) :- pai(X, Y), pai(Y, Z).
+  (X é avô de Z se X é pai de Y e Y é pai de Z)
+
+As regras permitem inferência e deducção. A partir de fatos simples, 
+derivam-se conclusões mais complexas.
+
+3.3 CONSULTAS
+-------------
+Uma consulta é uma pergunta formulada ao sistema Prolog sobre o que é 
+verdadeiro no domínio representado.
+
+Sintaxe: ?- predicado(argumento1, argumento2, ...).
+
+Exemplos:
+  ?- pai(carlos, joao).        % Pergunta: Carlos é pai de João?
+  ?- filho(X, carlos).         % Pergunta: Quem é filho de Carlos?
+  ?- avo(X, ana).              % Pergunta: Quem é avô de Ana?
+
+O sistema responde com:
+• "true" / "yes": se a consulta é satisfeita (condiçãoverdadeira)
+• "false" / "no": se a consulta não pode ser satisfeita
+• Uma ou mais soluções: se há variáveis a instanciar
+
+Consultas podem ser simples (apenas fatos) ou complexas (envolvendo regras).
+
+
+================================================================================
+4. VARIÁVEIS EM PROLOG
+================================================================================
+
+4.1 Papel das variáveis
+-----------------------
+Em Prolog, variáveis representam valores desconhecidos que o sistema deve 
+descobrir. Uma variável é um espaço para possíveis atribuições.
+
+Características:
+• Variáveis começam com letra maiúscula ou underscore (_)
+• Exemplos: X, Y, Nome, Resultado, _
+• O underscle (_) é a variável anônima, usada quando o valor é indiferente
+
+4.2 Uso em consultas
+--------------------
+Quando uma consulta contém variáveis, o Prolog busca todas as possíveis 
+instanciações (atribuições) que tornam a consulta verdadeira.
+
+Exemplo:
+  ?- filho(X, carlos).
+  
+O Prolog procura todos os valores possíveis para X que satisfazem filho(X, carlos).
+Respostas: X = joao; X = maria; ...
+
+4.3 Uso em regras
+-----------------
+Em regras, variáveis permitem expressar padrões genéricos e reutilizáveis.
+
+Exemplo:
+  irmao(X, Y) :- pai(P, X), pai(P, Y), X \= Y.
+  
+Significado geral: X e Y são irmãos se compartilham o mesmo pai P e são 
+diferentes (X \= Y).
+
+As variáveis P, X, Y funcionam como "placeholders" que podem ser unificadas 
+com qualquer valor específico durante a execução.
+
+
+================================================================================
+5. UNIFICAÇÃO
+================================================================================
+
+5.1 Conceito fundamental
+------------------------
+Unificação é o processo automático de reconhecer se dois termos podem ser 
+tornados idênticos através de atribuições apropriadas a variáveis.
+
+Em outras palavras: unificação é a correspondência de padrões.
+
+5.2 Exemplos de unificação
+---------------------------
+
+Exemplo 1 (Sucesso):
+  Termo 1: pai(carlos, X)
+  Termo 2: pai(carlos, joao)
+  
+  Unificação bem-sucedida: X = joao
+
+Exemplo 2 (Sucesso):
+  Termo 1: irmao(joao, Y)
+  Termo 2: irmao(joao, maria)
+  
+  Unificação bem-sucedida: Y = maria
+
+Exemplo 3 (Falha):
+  Termo 1: pai(carlos, X)
+  Termo 2: mae(teresa, joao)
+  
+  Unificação falha: predicados diferentes (pai ≠ mae)
+
+5.3 Papel da unificação em Prolog
+----------------------------------
+Quando o Prolog processa uma consulta:
+
+1. Tenta unificar a consulta com os fatos declarados
+2. Se bem-sucedida, registra as atribuições de variáveis
+3. Se falhar, tenta unificar com a cabeça das regras
+4. Recursivamente, tenta satisfazer o corpo das regras
+
+A unificação é o mecanismo que conecta perguntas com respostas.
+
+
+================================================================================
+6. BACKTRACKING
+================================================================================
+
+6.1 Definição
+-------------
+Backtracking é o mecanismo automático de exploração de alternativas em Prolog.
+Quando uma solução falha, o sistema retorna (retrocede) ao ponto anterior 
+e tenta uma alternativa diferente.
+
+6.2 Exemplo prático
+-------------------
+Considere a consulta: ?- filho(X, carlos).
+
+Com os fatos:
+  pai(carlos, joao).
+  pai(carlos, maria).
+
+Execução:
+1. Prolog tenta satisfazer filho(X, carlos)
+2. Regra 1: filho(X, Y) :- pai(Y, X)
+   → Unifica: pai(carlos, X)
+   → Encontra: pai(carlos, joao) → X = joao (primeira solução)
+3. Usuário pede mais soluções (;)
+4. Prolog retrocede (backtrack) e continua busca
+5. Encontra: pai(carlos, maria) → X = maria (segunda solução)
+6. Não há mais fatos de pai(carlos, ...) 
+7. Sistema retrocede e tenta Regra 2: filho(X, Y) :- mae(Y, X)
+   (e assim sucessivamente até esgotar todas as possibilidades)
+
+6.3 Comportamento automático
+-----------------------------
+O backtracking é automático e transparente para o programador. O sistema:
+• Explora todas as possibilidades sistematicamente
+• Não requer código explícito de controle de alternativas
+• Permite gerar múltiplas soluções de forma elegante
+• É o fundamento da natureza não-determinística de Prolog
+
+
+================================================================================
+7. INTEGRAÇÃO: COMO OS CONCEITOS APARECEM NO EXEMPLO
+================================================================================
+
+No exemplo "familia.pl", os conceitos aparecem de forma integrada:
+
+7.1 FATOS
+---------
+Os predicados pai(X, Y) e mae(X, Y) com seus respectivos argumentos 
+são os fatos brutos:
+
+  pai(carlos, joao).    % Fato: Carlos é pai de João
+  mae(teresa, joao).    % Fato: Teresa é mãe de João
+  
+Total: 10 fatos (conforme requisito mínimo)
+
+7.2 REGRAS
+----------
+Três regras foram implementadas:
+
+Regra 1 - filho(X, Y):
+  filho(X, Y) :- pai(Y, X).
+  filho(X, Y) :- mae(Y, X).
+  (Permite descobrir filhos a partir de fatos sobre pais/mães)
+
+Regra 2 - avo(X, Z):
+  avo(X, Z) :- pai(X, Y), pai(Y, Z).
+  avo(X, Z) :- pai(X, Y), mae(Y, Z).
+  avo(X, Z) :- mae(X, Y), pai(Y, Z).
+  avo(X, Z) :- mae(X, Y), mae(Y, Z).
+  (Permite descobrir avós através de uma cadeia de duas gerações)
+
+Regra 3 - irmao(X, Y):
+  irmao(X, Y) :- pai(P, X), pai(P, Y), X \= Y.
+  irmao(X, Y) :- mae(M, X), mae(M, Y), X \= Y.
+  (Permite descobrir irmãos compartilhando o mesmo progenitor)
+
+Total: 3 regras (conforme requisito mínimo)
+
+7.3 VARIÁVEIS
+-------------
+As variáveis aparecem em todos os contextos:
+• Em fatos simples com argumentos desconhecidos
+• Em regras como parâmetros genéricos (X, Y, Z, P, M)
+• Em consultas para buscar valores desconhecidos
+
+7.4 UNIFICAÇÃO
+--------------
+Unificação ocorre sempre que:
+• Uma consulta como "?- filho(X, carlos)" tenta corresponder 
+  com a regra "filho(X, Y) :- pai(Y, X)"
+• Registra-se: Y = carlos
+• Então busca-se pai(carlos, X) entre os fatos
+• Unifica com pai(carlos, joao) registrando X = joao
+
+7.5 BACKTRACKING
+----------------
+Backtracking ocorre quando:
+• Consulta "?- avo(X, ana)" busca avós de Ana
+• Tenta primeira cláusula de avo: pai(X, Y), pai(Y, ana)
+• Busca pai(?, ana) → encontra pai(joao, ana)
+• Unifica: Y = joao
+• Busca pai(X, joao) → encontra pai(carlos, joao) e pai(luis, joao)
+• Apresenta primeira solução: X = carlos
+• Se usuário pede mais (;), retrocede e apresenta X = luis
+• Se não houver mais, tenta próxima cláusula de avo com mae
+
+7.6 CONSULTAS
+-------------
+Três consultas demonstram uso prático:
+
+Consulta 1 - ?- filho(X, carlos).
+  Responde: X = joao; X = maria
+  Depende de fatos diretos através da Regra 1 (filho)
+
+Consulta 2 - ?- avo(X, ana).
+  Responde: X = luis
+  Depende de REGRA (avo), não de fato direto
+  Requer duas unificações e encadeamento
+
+Consulta 3 - ?- irmao(joao, X).
+  Responde: X = maria
+  Depende de REGRA (irmao) e verificação de diferença (X \= Y)
+
+
+================================================================================
+8. SÍNTESE: COMPREENSÃO DOS CONCEITOS BÁSICOS
+================================================================================
+
+Após análise do paradigma de programação lógica e da linguagem Prolog, 
+compreendemos que:
+
+8.1 Natureza Declarativa
+------------------------
+Prolog revoluciona a forma de programar ao permitir que o programador 
+expresse "o que é verdadeiro" em vez de "como computar". O sistema 
+automaticamente deduz consequências lógicas.
+
+8.2 Mecanismo Unificação + Backtracking
+----------------------------------------
+O poder de Prolog reside na combinação elegante de unificação (correspondência 
+de padrões) com backtracking (exploração de alternativas). Juntos, permitem 
+que o programa explore sistematicamente o espaço de soluções.
+
+8.3 Expressividade com Simplicidade
+-----------------------------------
+Mesmo com poucas linhas de código (fatos e regras simples), é possível 
+expressar relacionamentos complexos. A Regra de avô, por exemplo, com 
+apenas 4 cláusulas, captura todas as combinações possíveis de 
+ancestralidade através de pais e mães.
+
+8.4 Aplicabilidade Educacional
+-------------------------------
+Prolog é especialmente valiosa para ensinar lógica matemática, representação 
+de conhecimento e raciocínio dedutivo. O exemplo de relações familiares 
+demonstra como conceitos abstratos (variáveis, unificação, backtracking) 
+ganham concretude em aplicação prática.
+
+8.5 Distinção Fundamental
+--------------------------
+A principal diferença entre Prolog e linguagens imperativas:
+- Imperativas: "Primeiro faça X, depois faça Y para obter resultado Z"
+- Prolog: "Z é verdadeiro se X e Y são verdadeiros"
+
+
+================================================================================
+REFERÊNCIAS BIBLIOGRÁFICAS E TÉCNICAS
+================================================================================
+
+[1] CLOCKSIN, W. F.; MELLISH, C. S. Programming in Prolog. 5. ed. 
+    Berlin: Springer, 2003.
+    Referência clássica que define conceitos fundamentais de Prolog e 
+    sua sintaxe. Especialmente utilizada para compreender unificação e 
+    backtracking.
+
+[2] BRATKO, I. Prolog Programming for Artificial Intelligence. 4. ed. 
+    Boston: Pearson, 2012.
+    Obra que conecta Prolog com aplicações em IA e representação de 
+    conhecimento, fornecendo exemplos práticos de inferência lógica.
+
+[3] LLOYD, J. K. Foundations of Logic Programming. 2. ed. 
+    Berlin: Springer, 1987.
+    Fundamentação teórica rigorosa da programação lógica em lógica de 
+    primeira ordem, essencial para compreender semântica de Prolog.
+
+================================================================================
+FIM DO RELATÓRIO
+================================================================================

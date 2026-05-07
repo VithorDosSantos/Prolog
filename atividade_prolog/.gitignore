@@ -1,0 +1,151 @@
+# ============================================================================
+# .gitignore - Atividade Prolog
+# ============================================================================
+# Arquivo que especifica quais arquivos não devem ser versionados no Git
+
+# ============================================================================
+# ARQUIVOS DE CACHE E TEMPORÁRIOS
+# ============================================================================
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Cache do Prolog (SWI-Prolog)
+*.qlf
+*.qly
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.~*
+
+# ============================================================================
+# ARQUIVOS DE SISTEMA OPERACIONAL
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+
+# ============================================================================
+# ARQUIVOS DE EDITOR/IDE
+# ============================================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+.vim/
+.swp
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================================================
+# ARQUIVOS DE TESTE E DEBUGGING
+# ============================================================================
+
+# Testes locais
+test_output.txt
+debug_output.txt
+
+# Logs
+*.log
+
+# ============================================================================
+# ARQUIVOS OPCIONAIS (não são críticos para a entrega)
+# ============================================================================
+
+# Roteiro e falas do vídeo (uso interno, não precisa no repositório)
+ROTEIRO_VIDEO.txt
+FALA_INTEGRANTE_1.txt
+FALA_INTEGRANTE_2.txt
+FALA_INTEGRANTE_3.txt
+FALA_INTEGRANTE_4.txt
+GUIA_INTEGRANTE_*.txt
+
+# Checklist de requisitos (verificação local)
+CHECKLIST_REQUISITOS.txt
+
+# Versão em Python do simulador (opcional - código pode rodar em Prolog)
+# Descomente a linha abaixo se não quiser versioná-lo
+# run_familia_py.py
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# ============================================================================
+# ARQUIVOS QUE DEVEM SER VERSIONADOS (explicação)
+# ============================================================================
+
+# Os seguintes arquivos DEVEM estar no repositório:
+# ✓ RELATORIO_PROLOG.txt
+# ✓ familia.pl
+# ✓ EVIDENCIAS_EXECUCAO.txt
+# ✓ DOCUMENTACAO_USO_IA.txt
+# ✓ README.txt
+# ✓ PROMPT_GAMMA_SLIDES.txt
+# ✓ INICIO_RAPIDO.txt
+# ✓ run_familia_py.py
+# ✓ .gitignore (este arquivo)
+# ✓ Video em MP4 (opcional, pode ser muito grande)
+
+# NÃO versionados (uso local/interno):
+# ✗ ROTEIRO_VIDEO.txt
+# ✗ FALA_INTEGRANTE_*.txt
+# ✗ GUIA_INTEGRANTE_*.txt
+# ✗ CHECKLIST_REQUISITOS.txt
+
+# ============================================================================
+# EXCEÇÕES (forçar inclusão de arquivos mesmo com padrões acima)
+# ============================================================================
+
+# Se precisar versioná-lo mesmo se corresponder a padrões acima, use:
+# !arquivo_importante.txt
+
+# ============================================================================
